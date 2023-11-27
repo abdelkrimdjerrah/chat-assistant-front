@@ -27,7 +27,7 @@ function Input({
   const width = widthFull ? " w-full " : "";
   const paddingRight = Icon ? " pr-8 " : " ";
 
-  const background = white ? " bg-white " : "bg-gray-100";
+  const background = white ? " bg-white " : "bg-zinc-50";
   return (
     <div>
       <div className="relative">

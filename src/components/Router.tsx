@@ -7,9 +7,9 @@ import Login from "../pages/Login";
 
 
 function Router() {
-  const user = useSelector(selectUserData);
 
-  console.log(user)
+  const user = useSelector(selectUserData);
+  
   return (
     <Routes>
      

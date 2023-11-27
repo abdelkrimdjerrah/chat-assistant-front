@@ -10,7 +10,7 @@ import {
   setAccessToken,
   setUserData,
 } from "../redux/userSlice";
-import axios from "../api/axios";
+import { axiosInstanceNode } from "../api/axios";
 
 function Login() {
   const dispatch = useDispatch();
@@ -53,7 +53,7 @@ function Login() {
         password = 'test'
       }
 
-      const { data } = await axios.post(`/api/auth/login`,userData,{
+      const { data } = await axiosInstanceNode.post(`/api/auth/login`,userData,{
         headers: {
           withCredentials: "true",
           credentials: 'include'
