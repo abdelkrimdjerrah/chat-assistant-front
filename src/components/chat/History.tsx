@@ -16,7 +16,8 @@ const History = () => {
 
   const fetchHistory = async () => {
     try {
-      const { data } = await axiosPrivateSpring.get(`/api/sessions/users/${userId}`)
+      // const { data } = await axiosPrivateSpring.get(`/api/sessions/users/${userId}`)
+      const { data } = await axiosInstanceSpring.get(`/api/sessions/users/${userId}`)
       setHistory(data)
       console.log('Histoooory')
       console.log('Histoooory')
