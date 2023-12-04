@@ -12,7 +12,7 @@ const HistoryItem = ({sessionId, title}:Props) => {
   const dispatch = useDispatch()
 
   return (
-    <div onClick={()=>dispatch(setSessionId(sessionId))}>
+    <div className='cursor-pointer' onClick={()=>dispatch(setSessionId(sessionId))}>
       {title}
     </div>
   )

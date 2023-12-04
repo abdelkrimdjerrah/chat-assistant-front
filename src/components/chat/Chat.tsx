@@ -8,22 +8,25 @@ import BotMessage from "./BotMessage"
 import { useSelector } from "react-redux"
 import { selectUserData } from "../../redux/userSlice"
 import { selectSessionId } from "../../redux/sessionSlice"
-import { setSessionId } from "../../redux/sessionSlice"
+import { setSessionId, clearSessionId } from "../../redux/sessionSlice"
 import { useDispatch } from "react-redux"
+import useAxiosPrivateSpring from "../../hooks/useAxiosPrivateSpring"
 
 
 const Chat = () => {
 
+    const axiosPrivateSpring = useAxiosPrivateSpring()
     const [input, setInput] = useState('')
     const [conversation, setConversation] = useState<Entities.IMessage[]>([])
     const userData = useSelector(selectUserData)
     const currentSession = useSelector(selectSessionId)
     const dispatch = useDispatch()
     
+    
 
     const createSession = async () => {
         try {
-            const { data } = await axiosInstanceSpring.post(`/api/sessions`, {userId: userData?._id})
+            const { data } = await axiosPrivateSpring.post(`/api/sessions`, {userId: userData?._id})
             dispatch(setSessionId(data))
         } catch (err) {
             console.log(err)
@@ -32,9 +35,23 @@ const Chat = () => {
 
     const fetchConversation = async () => {
         try {
-            const { data } = await axiosInstanceSpring.get(`/api/sessions/${currentSession}`)
-            if(data.conversation){
+            console.log(currentSession)
+            const { data } = await axiosPrivateSpring.get(`/api/sessions/${currentSession}`)
+            if(data && data.conversation){
                 setConversation(data.conversation)
+            }
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    const deleteSession = async () => {
+        try {
+            console.log(currentSession)
+            const { data } = await axiosPrivateSpring.delete(`/api/sessions/${currentSession}`)
+            console.log("session : " + currentSession + " has been deleted ")
+            if(data){
+                clearSessionId()
             }
         } catch (err) {
             console.log(err)
@@ -54,7 +71,12 @@ const Chat = () => {
             )
             setInput('')
 
-            const { data } = await axiosInstanceSpring.post(`/api/sessions/chat`, {
+            console.log("sessionId")
+            console.log(currentSession)
+            console.log("sessionId")
+
+            
+            const { data } = await axiosPrivateSpring.post(`/api/sessions/chat`, {
                 input, sessionId: currentSession
             })
 
@@ -76,11 +98,20 @@ const Chat = () => {
         }
     }
     useEffect(() => {
-        if (currentSession) {
-            fetchConversation()
-        }else{
+        // if (currentSession) {
+        //     fetchConversation()
+            
+        // }else{
             createSession()
-        }
+        // }
+
+        // return(
+        //     () => {
+        //         if(!conversation.length){
+        //             deleteSession()
+        //         }
+        //     }
+        // )
     }
     , [])
 
@@ -100,7 +131,7 @@ const Chat = () => {
             ) : (
                 <>
                     <div className="font-semibold pb-4">Chat</div>
-                    <div className="overflow-y-scroll flex flex-col">
+                    <div className="overflow-y-scroll flex flex-col h-screen">
                         {
                             conversation?.map((message: {user:boolean,text:string}, index:number) => (
                                 <div key={index}>

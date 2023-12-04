@@ -7,9 +7,9 @@ declare namespace Entities {
   }
 
   export interface ISession extends Creatable {
-    _id: mongoose.Schema.Types.ObjectId
+    sessionId: mongoose.Schema.Types.ObjectId
     userId: string;
-    conversation: IMessage[];
+    conversation?: IMessage[];
     }
   }
   

@@ -2,10 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { axiosInstanceSpring } from '../../api/axios'
 import { useSelector } from 'react-redux'
 import { selectUserData } from '../../redux/userSlice'
+import HistoryItem from './HistoryItem'
+import useAxiosPrivateSpring from '../../hooks/useAxiosPrivateSpring'
 
 
 const History = () => {
 
+  const axiosPrivateSpring = useAxiosPrivateSpring()
   const [history, setHistory] = useState<Entities.ISession[]>()
   const userData = useSelector(selectUserData)
   const userId = userData?._id
@@ -13,8 +16,15 @@ const History = () => {
 
   const fetchHistory = async () => {
     try {
-      const { data } = await axiosInstanceSpring.get(`/api/sessions/users/${userId}`)
-        setHistory(data)
+      const { data } = await axiosPrivateSpring.get(`/api/sessions/users/${userId}`)
+      setHistory(data)
+      console.log('Histoooory')
+      console.log('Histoooory')
+      console.log('Histoooory')
+      console.log(data)
+      console.log('Histoooory')
+      console.log('Histoooory')
+      console.log('Histoooory')
     } catch (err) {
         console.log(err)
     }
@@ -29,10 +39,13 @@ const History = () => {
         <div className='flex flex-col gap-3'>
             <div className='font-semibold'>History</div>
             <div className='flex flex-col gap-2'>
-                <div className='cursor-pointer'>This is a test</div>
-                <div className='cursor-pointer'>This is a test</div>
-                <div className='cursor-pointer'>This is a test</div>
-                <div className='cursor-pointer'>This is a test</div>
+              {
+                history?.map((session:Entities.ISession, index:number)=>(
+                  <div key={index}>
+                    <HistoryItem sessionId={session.sessionId} title={session.sessionId} />
+                  </div>
+                ))
+              }
             </div>
         </div>
       

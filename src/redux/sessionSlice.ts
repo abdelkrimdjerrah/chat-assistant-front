@@ -5,7 +5,7 @@ interface ISession {
 }
 
 const initialState: ISession = {
-  sessionId: '6560cb483449bf1d9129a829',
+  sessionId: '',
 };
 
 export const sessionSlice = createSlice({
@@ -18,6 +18,11 @@ export const sessionSlice = createSlice({
     ) => {
       state.sessionId = action.payload;
     },
+    clearSessionId: (
+      state
+    ) => {
+      state.sessionId = '';
+    },
   },
 });
 
@@ -25,6 +30,9 @@ export const selectSessionId = (state: any) => {
   return state.session.sessionId;
 };
 
-export const { setSessionId } = sessionSlice.actions;
+export const { 
+  setSessionId,
+  clearSessionId
+ } = sessionSlice.actions;
 
 export default sessionSlice.reducer;

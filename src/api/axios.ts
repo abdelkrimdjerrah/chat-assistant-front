@@ -10,3 +10,22 @@ export const axiosInstanceNode = axios.create({
 export const axiosInstanceSpring = axios.create({
   baseURL: BASE_URL_2,
 });
+
+export const axiosPrivateNode = axios.create({
+  baseURL: BASE_URL_1,
+  headers: {
+    "Content-Type": "application/json",
+    withCredentials: "true",
+  },
+  withCredentials: true,
+});
+
+export const axiosPrivateSpring = axios.create({
+  baseURL: BASE_URL_2,
+  headers: {
+    "Content-Type": "application/json",
+    withCredentials: "true",
+  },
+  withCredentials: true,
+});
+
