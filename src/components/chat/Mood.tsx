@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 const Mood = ({mood}:any) => {
 
   return (
-      <div id="app-cover" className='flex items-center flex-col py-5'>
+      <div id="app-cover" className='flex items-center flex-col py-7'>
   <h1 className='leading-3'>Ines is feeling</h1>
   <div id="app" className='flex gap-5'>
     <div className={`mood ${mood === 'great' ? 'active' : ''}`} id="mood-great">

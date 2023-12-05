@@ -15,7 +15,7 @@ const Home = () => {
 
   
   return (
-    <div className="w-full h-screen flex gap-10 pt-20 pb-10">
+    <div className="w-full h-screen flex gap-10 pt-20 pb-5">
       <History />
       <Chat />
     </div>

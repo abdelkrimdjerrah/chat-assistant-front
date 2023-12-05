@@ -129,12 +129,12 @@ const Chat = () => {
         }
     }
     useEffect(() => {
-        // if (currentSession) {
-        //     fetchConversation()
+        if (currentSession) {
+            fetchConversation()
             
-        // }else{
+        }else{
             createSession()
-        // }
+        }
 
         // return(
         //     () => {
@@ -146,7 +146,7 @@ const Chat = () => {
 
       
     }
-    , [])
+    , [currentSession])
 
 
 
@@ -164,7 +164,6 @@ const Chat = () => {
             </div>
             ) : (
                 <>
-                    <div className="font-semibold pb-4">Chat</div>
                     <Mood mood={mood} />
                     <div className="overflow-y-scroll flex flex-col h-screen">
                         {

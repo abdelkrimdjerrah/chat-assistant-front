@@ -14,7 +14,7 @@ h1 {
     text-align: center;
     letter-spacing: 1px;
     line-height: 1;
-    margin: 0 0 31px 0;
+    margin: 0 0 40px 0;
 }
 
 #app:after {
@@ -29,7 +29,6 @@ h1 {
     width: 84px;
     height: 84px;
     float: left;
-    padding: 25px;
     transition: 0.5s ease top;
     cursor: pointer;
 }
@@ -190,8 +189,8 @@ h1 {
 }
 
 .mood.active .mood-name {
-    bottom: -50px;
-    left: -5px;
+    bottom: -30px;
+    left: -40px;
     opacity: 1;
 }
 
