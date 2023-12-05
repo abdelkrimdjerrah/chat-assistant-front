@@ -24,12 +24,16 @@ const Chat = () => {
     const currentSession = useSelector(selectSessionId)
     const dispatch = useDispatch()
     
+
+
+
     
 
     const createSession = async () => {
         try {
-            // const { data } = await axiosPrivateSpring.post(`/api/sessions`, {userId: userData?._id})
-            const { data } = await axiosInstanceSpring.post(`/api/sessions`, {userId: userData?._id})
+            const { data } = await axiosPrivateSpring.post(`/api/sessions`, {userId: userData?._id})
+            console.log(data)
+            // const { data } = await axiosInstanceSpring.post(`/api/sessions`, {userId: userData?._id})
             dispatch(setSessionId(data))
         } catch (err) {
             console.log(err)
@@ -40,11 +44,9 @@ const Chat = () => {
         try {
             const { data } = await axiosInstancePython.post(`/`, {text})
 
-            console.log(data)
-            console.log(data.positive_percentage )
             if (data.positive_percentage > 60) {
                 setMood('great');
-            } else if (data.positive_percentage < 60) {
+            } else if (data.positive_percentage < 40) {
                 setMood('bad');
             } else {
                 setMood('okay');
@@ -58,8 +60,8 @@ const Chat = () => {
     const fetchConversation = async () => {
         try {
             console.log(currentSession)
-            // const { data } = await axiosPrivateSpring.get(`/api/sessions/${currentSession}`)
-            const { data } = await axiosInstanceSpring.get(`/api/sessions/${currentSession}`)
+            const { data } = await axiosPrivateSpring.get(`/api/sessions/${currentSession}`)
+            // const { data } = await axiosInstanceSpring.get(`/api/sessions/${currentSession}`)
             if(data && data.conversation){
                 setConversation(data.conversation)
             }
@@ -71,9 +73,8 @@ const Chat = () => {
     const deleteSession = async () => {
         try {
             console.log(currentSession)
-            // const { data } = await axiosPrivateSpring.delete(`/api/sessions/${currentSession}`)
-            const { data } = await axiosInstanceSpring.delete(`/api/sessions/${currentSession}`)
-            console.log("session : " + currentSession + " has been deleted ")
+            const { data } = await axiosPrivateSpring.delete(`/api/sessions/${currentSession}`)
+            // const { data } = await axiosInstanceSpring.delete(`/api/sessions/${currentSession}`)
             if(data){
                 clearSessionId()
             }
@@ -102,13 +103,11 @@ const Chat = () => {
             )
             setInput('')
 
-            console.log("sessionId")
-            console.log(currentSession)
-            console.log("sessionId")
+
 
             
-            // const { data } = await axiosPrivateSpring.post(`/api/sessions/chat`, {
-            const { data } = await axiosInstanceSpring.post(`/api/sessions/chat`, {
+            const { data } = await axiosPrivateSpring.post(`/api/sessions/chat`, {
+            // const { data } = await axiosInstanceSpring.post(`/api/sessions/chat`, {
                 input, sessionId: currentSession
             })
 
