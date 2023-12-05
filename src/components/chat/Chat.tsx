@@ -12,6 +12,7 @@ import { setSessionId, clearSessionId } from "../../redux/sessionSlice"
 import { useDispatch } from "react-redux"
 import useAxiosPrivateSpring from "../../hooks/useAxiosPrivateSpring"
 import Mood from "./Mood"
+import Button from "../shared/Button"
 
 
 const Chat = () => {
@@ -136,13 +137,17 @@ const Chat = () => {
             createSession()
         }
 
-        // return(
-        //     () => {
-        //         if(!conversation.length){
-        //             deleteSession()
-        //         }
-        //     }
-        // )
+        return(
+            () => {
+                // if(conversation.length){
+                //     clearSessionId()
+                // }
+                // if(!conversation.length){
+                //     console.log(conversation)
+                //     deleteSession()
+                // }
+            }
+        )
 
       
     }
@@ -154,18 +159,22 @@ const Chat = () => {
 
 
   return (
-    <div className='w-3/4 bg-zinc-50 rounded-3xl py-6 px-4 flex flex-col justify-between'>
+    <div className='w-full md:w-3/4 bg-zinc-50 rounded-none md:rounded-3xl py-6 px-2 md:px-4 flex flex-col justify-between'>
         
         {
             !conversation?.length ? (
                 <div className='flex flex-col gap-2'>
-                <div className='text-[130px] tracking-tighter font-bold leading-none'>Hello!</div>
-                <div className='text-[50px] tracking-tight leading-none'>INES is here to help you.</div>
+                <div className='text-[80px] md:text-[130px] tracking-tighter font-bold leading-none'>Hello!</div>
+                <div className='text-[30px] md:text-[50px] tracking-tight leading-none'>Sacha is here with you.</div>
             </div>
             ) : (
                 <>
-                    <Mood mood={mood} />
-                    <div className="overflow-y-scroll flex flex-col h-screen">
+                    <div className="flex justify-between">
+                        <Mood mood={mood} />
+
+                        <Button  onClick={()=>{createSession()}} className='text-xs md:text-sm bg-zinc-900 border h-fit text-white'>New chat</Button>
+                    </div>
+                    <div className="overflow-y-scroll flex flex-col h-[100dvh]">
                         {
                             conversation?.map((message: {user:boolean,text:string}, index:number) => (
                                 <div key={index}>

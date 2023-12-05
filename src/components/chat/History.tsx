@@ -29,7 +29,7 @@ const History = () => {
   },[])
 
   return (
-    <div className='w-1/4 bg-zinc-50 relative max-h-screen overflow-scroll  rounded-3xl py-6 px-4'>
+    <div className='w-1/4 bg-zinc-50 relative max-h-[100dvh] overflow-scroll hidden md:flex  rounded-3xl py-6 px-4'>
         <div className='flex flex-col gap-3'>
             <div className='font-semibold'>History</div>
             <div className='flex flex-col gap-2 '>

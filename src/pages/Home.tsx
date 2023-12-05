@@ -15,7 +15,7 @@ const Home = () => {
 
   
   return (
-    <div className="w-full h-screen flex gap-10 pt-20 pb-5">
+    <div className="w-full h-[100dvh] flex gap-10 pt-20 md:pb-5 overflow-y-hidden">
       <History />
       <Chat />
     </div>

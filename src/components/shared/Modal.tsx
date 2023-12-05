@@ -22,7 +22,7 @@ const Modal: React.FC<Props> = ({ closeModal, children }) => {
     <AnimatePresence  onExitComplete={() => closeModal}>
       {isOpen && (
         <motion.div
-          className="z-50 bg-gray-900 bg-opacity-10 backdrop-blur-[1px] fixed h-screen left-0 right-0 bottom-0 flex items-center justify-center"
+          className="z-50 bg-gray-900 bg-opacity-10 backdrop-blur-[1px] fixed h-[100dvh] left-0 right-0 bottom-0 flex items-center justify-center"
           onClick={()=> closeModal(true)}
           initial={{ opacity: 0.2 }}
           animate={{ opacity: 1 }}
