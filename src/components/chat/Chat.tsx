@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import Textarea from "../shared/Textarea"
 import Input from "../shared/Input"
 import { PaperPlaneRight } from "phosphor-react"
-import { axiosInstanceSpring } from "../../api/axios"
+import { axiosInstancePython, axiosInstanceSpring } from "../../api/axios"
 import UserMessage from "./UserMessage"
 import BotMessage from "./BotMessage"
 import { useSelector } from "react-redux"
@@ -11,12 +11,14 @@ import { selectSessionId } from "../../redux/sessionSlice"
 import { setSessionId, clearSessionId } from "../../redux/sessionSlice"
 import { useDispatch } from "react-redux"
 import useAxiosPrivateSpring from "../../hooks/useAxiosPrivateSpring"
+import Mood from "./Mood"
 
 
 const Chat = () => {
 
     const axiosPrivateSpring = useAxiosPrivateSpring()
     const [input, setInput] = useState('')
+    const [mood, setMood] = useState('')
     const [conversation, setConversation] = useState<Entities.IMessage[]>([])
     const userData = useSelector(selectUserData)
     const currentSession = useSelector(selectSessionId)
@@ -29,6 +31,25 @@ const Chat = () => {
             // const { data } = await axiosPrivateSpring.post(`/api/sessions`, {userId: userData?._id})
             const { data } = await axiosInstanceSpring.post(`/api/sessions`, {userId: userData?._id})
             dispatch(setSessionId(data))
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    const sentimentAnalyser = async (text:string) => {
+        try {
+            const { data } = await axiosInstancePython.post(`/`, {text})
+
+            console.log(data)
+            console.log(data.positive_percentage )
+            if (data.positive_percentage > 60) {
+                setMood('great');
+            } else if (data.positive_percentage < 60) {
+                setMood('bad');
+            } else {
+                setMood('okay');
+            }
+        
         } catch (err) {
             console.log(err)
         }
@@ -63,6 +84,13 @@ const Chat = () => {
 
     const handleSendPrompt = async () => {
         try {
+
+            // if(!story){
+            //     setStory(input)
+            // }
+
+            sentimentAnalyser(input)
+            
             setConversation((prev:{user:boolean,text:string}[]) =>   
                 [
                     ...prev,
@@ -116,6 +144,8 @@ const Chat = () => {
         //         }
         //     }
         // )
+
+      
     }
     , [])
 
@@ -126,6 +156,7 @@ const Chat = () => {
 
   return (
     <div className='w-3/4 bg-zinc-50 rounded-3xl py-6 px-4 flex flex-col justify-between'>
+        
         {
             !conversation?.length ? (
                 <div className='flex flex-col gap-2'>
@@ -135,6 +166,7 @@ const Chat = () => {
             ) : (
                 <>
                     <div className="font-semibold pb-4">Chat</div>
+                    <Mood mood={mood} />
                     <div className="overflow-y-scroll flex flex-col h-screen">
                         {
                             conversation?.map((message: {user:boolean,text:string}, index:number) => (
