@@ -91,6 +91,10 @@ const Chat = () => {
             //     setStory(input)
             // }
 
+            if(!input){
+                return
+            }
+
             sentimentAnalyser(input)
             
             setConversation((prev:{user:boolean,text:string}[]) =>   
@@ -162,6 +166,13 @@ const Chat = () => {
         }
       }
 
+      useEffect(() => {
+        const chatWindow = document.getElementById('chat-window');
+        if (chatWindow) {
+          chatWindow.scrollTo({ top: chatWindow.scrollHeight, behavior: 'smooth' });
+        }
+      }, [conversation]);
+      
 
   return (
     <div className='w-full md:w-3/4 bg-zinc-50 rounded-none md:rounded-3xl py-6 px-2 md:px-4 flex flex-col justify-between'>
@@ -179,7 +190,7 @@ const Chat = () => {
 
                         <Button  onClick={()=>{createSession()}} className='text-xs md:text-sm bg-zinc-900 border h-fit text-white'>New chat</Button>
                     </div>
-                    <div className="overflow-y-scroll flex flex-col h-[100dvh]">
+                    <div id="chat-window" className="overflow-y-scroll flex flex-col h-[100dvh]">
                         {
                             conversation?.map((message: {user:boolean,text:string}, index:number) => (
                                 <div key={index}>
