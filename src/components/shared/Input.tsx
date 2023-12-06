@@ -8,6 +8,7 @@ interface InputProps {
   value: string;
   secure?: boolean;
   white?: boolean;
+  onKeyPress?: (e: any) => void;
   onChange: (v: string) => void;
   onClick?: (e: any) => void;
   className?: string;
@@ -20,6 +21,7 @@ function Input({
   type,
   text,
   value,
+  onKeyPress,
   onChange,
   onClick,
   Icon,
@@ -32,6 +34,7 @@ function Input({
     <div>
       <div className="relative">
         <input
+          onKeyDown={onKeyPress}
           className={
             background +
             width +

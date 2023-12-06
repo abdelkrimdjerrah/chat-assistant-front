@@ -156,6 +156,11 @@ const Chat = () => {
 
 
 
+    const handleKeyPress = (event:any) => {
+        if(event.key === 'Enter'){
+            handleSendPrompt()
+        }
+      }
 
 
   return (
@@ -205,6 +210,7 @@ const Chat = () => {
               widthFull
               onChange={(v) => setInput(v)}
               value={input}
+              onKeyPress={handleKeyPress}
             />
             <div className='absolute top-[11px] right-3 text-zinc-400 cursor-pointer' onClick={handleSendPrompt}>
                 <PaperPlaneRight size={30} weight="thin" />
