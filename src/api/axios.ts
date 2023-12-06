@@ -5,7 +5,8 @@ import axios from "axios";
 const BASE_URL_1 = "https://akalaty-back.vercel.app";
 // const BASE_URL_2 = "http://localhost:8080";
 const BASE_URL_2 = "https://sacha-springboot.onrender.com";
-const BASE_URL_3 = "http://127.0.0.1:8000";
+// const BASE_URL_3 = "http://127.0.0.1:8000";
+const BASE_URL_3 = "https://sacha-python.onrender.com";
 
 export const axiosInstanceNode = axios.create({
   baseURL: BASE_URL_1,
